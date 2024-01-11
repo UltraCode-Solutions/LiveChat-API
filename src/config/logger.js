@@ -1,6 +1,6 @@
 import { format, createLogger, transports, addColors } from "winston";
 const { combine, printf } = format;
-import ip from "ip";
+
 import dotenv from "dotenv";
 dotenv.config();
 export let logger;
@@ -113,7 +113,7 @@ switch (process.env.ENVIRONMENT) {
 
 export const addLogger = (req, res, next) => {
    req.logger = logger;
-   const ipClient = ip.address();
+   const ipClient = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
    const start = Date.now(); // Record the start time
 
    res.on("finish", () => {

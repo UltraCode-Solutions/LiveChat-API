@@ -24,7 +24,7 @@ import { logger } from "./config/logger.js";
 import messagesRouter from "./modules/Users/router.js";
 import usersRouter from "./modules/Users/router.js";
 
-// connectDb(); esto es mongo, conecten la db que quiera.
+// connectDb(); esto es mongo, conecten la db que quieran.
 
 const PORT = process.env.PORT || 3000;
 const app = express();
