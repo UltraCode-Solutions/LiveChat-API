@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const connectMongoose = async () => {
    const connect = await mongoose.connect(process.env.MONGO_URL, {
-      dbName: "E-Commerce",
+      dbName: "LiveChat",
    });
 };
 
