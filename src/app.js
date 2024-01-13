@@ -15,16 +15,17 @@
 
 import express from "express";
 import "dotenv/config";
-
+import jwt from "jsonwebtoken";
 import compression from "compression";
 import { connectDb } from "./config/utils/mongoConnect.js";
 import { addLogger } from "./config/logger.js"; // Import logger and addLogger
 import { logger } from "./config/logger.js";
 
-import messagesRouter from "./modules/Users/router.js";
+import messagesRouter from "./modules/Messages/router.js";
 import usersRouter from "./modules/Users/router.js";
+import authRouter from "./modules/Users/Auth/router.js";
 
-// connectDb(); esto es mongo, conecten la db que quieran.
+connectDb()
 
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -34,7 +35,7 @@ app.listen(PORT, () => {
 
 // Middlewares //
 app.use(express.static('public')); // serve public
-app.use(addLogger); // logger para los endpoint
+app.use(addLogger); // general logging
 app.use(express.json()); // Parse JSON requests
 app.use(express.urlencoded({ extended: true })); // Parse URL-encoded requests
 
@@ -44,7 +45,7 @@ app.use(compression({})); // Enable response compression
 
 app.use("/api/messages", messagesRouter);
 app.use("/api/users", usersRouter);
-
+app.use("/api/auth", authRouter);
 // Error handlers //
 
 //Bad JSON
